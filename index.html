@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Compare Maps</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"
+    />
+    <link rel="stylesheet" href="compare.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="map1">
+        <div class="control-box">
+          <button id="toggle-control-box" class="btn btn-primary">
+            Hide Controls
+          </button>
+          <div id="control-box-content" class="control-box-content">
+            <label for="map1-select">First Map:</label>
+            <select id="map1-select" class="custom-select custom-dropdown">
+              <option value="Select a Topic">Select a Topic</option>
+              <option value="Population">Population</option>
+              <option value="Migration">Migration</option>
+            </select>
+            <label for="map1-slider">Time Period:</label>
+            <input
+              type="range"
+              id="map1-slider"
+              min="1800"
+              max="1850"
+              value="1800"
+              step="10"
+              class="slider"
+            />
+            <span id="map1-year">1800</span>
+
+            <label for="map2-select">Second Map:</label>
+            <select id="map2-select" class="custom-select custom-dropdown">
+              <option value="Select a Topic">Select a Topic</option>
+              <option value="Population">Population</option>
+              <option value="Migration">Migration</option>
+            </select>
+            <label for="map2-slider">Time Period:</label>
+            <input
+              type="range"
+              id="map2-slider"
+              min="1800"
+              max="1850"
+              value="1800"
+              step="10"
+              class="slider"
+            />
+            <span id="map2-year">1800</span>
+
+            <button id="show-table" class="btn btn-primary">
+              Show Attribute Table
+            </button>
+            <button
+              id="hide-table"
+              class="btn btn-secondary"
+              style="display: none"
+            >
+              Hide Attribute Table
+            </button>
+          </div>
+        </div>
+        <div id="map1-info" class="info-box"></div>
+        <div class="legend density-legend" id="density-legend-map1">
+          <div class="legend-header">
+            <button class="toggle-legend">+</button>
+            <span>Legend</span>
+          </div>
+          <div class="legend-content">
+            <p class="legend-title">Population Density (per Sq. km)</p>
+            <div class="item">
+              <div class="color" style="background-color: #feedde"></div>
+              <span>0 to 1.94 (Highly Sparse)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #fdbe85"></div>
+              <span>1.94 to 4.35 (Moderately Sparse)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #fd8d3c"></div>
+              <span>4.35 to 8.16 (Moderately Dense)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #e6550d"></div>
+              <span>8.16 to 12.66 (Dense)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #a63603"></div>
+              <span>12.66 to 1017.24 (Highly Dense)</span>
+            </div>
+          </div>
+        </div>
+        <div class="legend migration-legend" id="migration-legend-map1">
+          <div class="legend-header">
+            <button class="toggle-legend">+</button>
+            <span>Legend</span>
+          </div>
+          <div class="legend-content">
+            <p class="legend-title">Migration Efficiency</p>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #fddbc7"></div>
+              <span>-0.15 to 0 (Outmigrants &gt; Inmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #d1e5f0"></div>
+              <span>0 to 0.15 (Outmigrants &gt; Inmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #92c5de"></div>
+              <span>0.15 to 0.30 (Inmigrants ≈ Outmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #4393c3"></div>
+              <span>0.30 to 0.45 (Inmigrants &gt; Outmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #2166ac"></div>
+              <span>0.45 to 0.70 (Inmigrants &gt; Outmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: lightgrey"></div>
+              <span>Missing Data</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="map2">
+        <div id="map2-info" class="info-box"></div>
+        <!-- <img
+          id="layer-icon"
+          class="layer-icon"
+          src="layericon.png"
+          alt="Layer Icon"
+        /> -->
+
+        <div class="legend density-legend" id="density-legend-map2">
+          <div class="legend-header">
+            <button class="toggle-legend">+</button>
+            <span>Legend</span>
+          </div>
+          <div class="legend-content">
+            <p class="legend-title">Population Density (per Sq. km)</p>
+            <div class="item">
+              <div class="color" style="background-color: #feedde"></div>
+              <span>0 to 1.94 (Highly Sparse)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #fdbe85"></div>
+              <span>1.94 to 4.35 (Moderately Sparse)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #fd8d3c"></div>
+              <span>4.35 to 8.16 (Moderately Dense)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #e6550d"></div>
+              <span>8.16 to 12.66 (Dense)</span>
+            </div>
+            <div class="item">
+              <div class="color" style="background-color: #a63603"></div>
+              <span>12.66 to 1017.24 (Highly Dense)</span>
+            </div>
+          </div>
+        </div>
+        <div class="legend migration-legend" id="migration-legend-map2">
+          <div class="legend-header">
+            <button class="toggle-legend">+</button>
+            <span> Legend</span>
+          </div>
+          <div class="legend-content">
+            <p class="legend-title">Migration Efficiency</p>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #fddbc7"></div>
+              <span>-0.15 to 0 (Outmigrants &gt; Inmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #d1e5f0"></div>
+              <span>0 to 0.15 (Outmigrants &gt; Inmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #92c5de"></div>
+              <span>0.15 to 0.30 (Inmigrants ≈ Outmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #4393c3"></div>
+              <span>0.30 to 0.45 (Inmigrants &gt; Outmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: #2166ac"></div>
+              <span>0.45 to 0.70 (Inmigrants &gt; Outmigrants)</span>
+            </div>
+            <div class="legend-items">
+              <div class="color-boxs" style="background-color: lightgrey"></div>
+              <span>Missing Data</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tables-container" style="display: none">
+      <div class="table-container">
+        <table id="table1" class="display">
+          <thead>
+            <tr id="table1-header"></tr>
+          </thead>
+          <tbody id="table1-body"></tbody>
+        </table>
+      </div>
+      <div class="table-container">
+        <table id="table2" class="display">
+          <thead>
+            <tr id="table2-header"></tr>
+          </thead>
+          <tbody id="table2-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@3.0.0/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="compare.js"></script>
+  </body>
+</html>
