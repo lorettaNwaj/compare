@@ -1,0 +1,359 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 100%;
+}
+
+#tables-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
+  height: 40%;
+  overflow: hidden;
+}
+
+#map1,
+#map2 {
+  position: relative;
+  width: 48%;
+  height: 100%;
+  margin: 0 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-container {
+  position: relative;
+  width: 48%;
+  height: 100%;
+  margin: 0 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.control-box {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  width: 30%;
+}
+
+.control-box label,
+.control-box select,
+.control-box button {
+  margin-bottom: 10px; /* Space between elements */
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#map1-year,
+#map2-year {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.info-box {
+  position: absolute;
+  top: 200px;
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none; /* Initially hide the info box */
+}
+
+.legend {
+  position: absolute;
+  bottom: 35px; /* Moved down a bit */
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  display: none;
+}
+
+.legend-header {
+  display: flex;
+  align-items: center;
+}
+
+.legend-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.item,
+.legend-items {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.color,
+.color-boxs {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+.toggle-legend {
+  background-color: transparent;
+  color: black;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 5px;
+  outline: none;
+}
+
+.toggle-legend:hover {
+  color: grey;
+}
+
+.legend-content {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  height: 15px;
+  font-size: 10px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 15px;
+  font-size: 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 2px 5px;
+  margin: 0;
+  height: 30px;
+  line-height: 30px;
+  font-size: 10px;
+}
+/* Reduce the font size of the DataTables info text */
+.dataTables_info {
+  font-size: 10px; /* Adjust this value to make the text smaller */
+  color: #666; /* Optional: Adjust the text color */
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: #e9ecef;
+}
+/* Reduce the font size of the DataTables length (entries) and search elements */
+.dataTables_length label,
+.dataTables_filter label {
+  font-size: 10px; /* Adjust this value to make the text smaller */
+  color: #666; /* Optional: Adjust the text color */
+}
+
+/* Reduce the font size and size of the dropdown for selecting number of entries */
+.dataTables_length select {
+  font-size: 10px; /* Adjust this value to match the label text */
+  height: 20px; /* Adjust the height of the dropdown */
+  width: auto; /* Adjust the width of the dropdown */
+}
+
+/* Reduce the font size and size of the search input box */
+.dataTables_filter input {
+  font-size: 10px; /* Adjust this value to match the label text */
+  height: 20px; /* Adjust the height of the search input box */
+  width: 100px; /* Adjust the width of the search input box */
+  padding: 2px; /* Adjust padding for a more compact input box */
+}
+
+.clickable-row:hover {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.custom-dropdown {
+  width: 120px;
+  font-size: 12px;
+}
+
+#show-table,
+#hide-table {
+  margin: 10px auto;
+  display: block;
+  color: #ddd;
+  font-size: 12px;
+  background-color: #666; /* Set background color to grey */
+  border: none; /* Remove border */
+}
+
+#show-table:hover,
+#hide-table:hover {
+  background-color: #555; /* Darken background color on hover */
+}
+.initial-message {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  padding: 20px;
+  display: block;
+}
+/* Target the Hide Controls button */
+#toggle-control-box {
+  background-color: #666; /* Change background color */
+  color: white; /* Change text color */
+  border: none; /* Remove border */
+  padding: 8px 15px; /* Adjust padding for button size */
+  font-size: 12px; /* Adjust font size */
+  border-radius: 5px; /* Adjust border radius for rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Adjust the box shadow */
+}
+
+/* Add hover effect */
+#toggle-control-box:hover {
+  background-color: #555; /* Darker shade on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+}
+/* Base styles for the slider */
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default appearance */
+  width: 100%; /* Full width of the container */
+  height: 8px; /* Height of the slider track */
+  background: #666; /* Black background for the track */
+  border-radius: 4px; /* Rounded corners for the track */
+  outline: none; /* Remove default outline */
+  margin: 10px 0; /* Optional: Add vertical margin */
+}
+
+/* WebKit browsers (Chrome, Safari) - Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default appearance */
+  appearance: none;
+  width: 18px; /* Smaller width for the thumb */
+  height: 18px; /* Smaller height for the thumb */
+  background: #fff; /* White color for the thumb */
+  border: 2px solid #666; /* Black border around the thumb */
+  border-radius: 50%; /* Make the thumb round */
+  margin-top: -3px; /* Align the thumb vertically center */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  transition: background 0.3s ease; /* Smooth transition */
+}
+
+/* Mozilla Firefox - Thumb */
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid #666;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease;
+}
+
+/* Microsoft Edge and IE - Thumb */
+input[type="range"]::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid #666;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease;
+}
+
+/* Hover effect for the thumb */
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]::-moz-range-thumb:hover,
+input[type="range"]::-ms-thumb:hover {
+  background: #ccc; /* Lighter shade on hover */
+}
+
+/* Focus effect for accessibility */
+input[type="range"]:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Remove default track styling in Firefox */
+input[type="range"]::-moz-range-track {
+  background: #666;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Remove default track styling in IE and Edge */
+input[type="range"]::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  height: 8px;
+}
+
+input[type="range"]::-ms-fill-lower {
+  background: #5e5b5b;
+  border-radius: 4px;
+}
+
+input[type="range"]::-ms-fill-upper {
+  background: #5e5b5b;
+  border-radius: 4px;
+}
+.highlighted-row {
+  background-color: darkgray !important;
+}
+/* Basic styling for the image */
+.layer-icon {
+  margin-right: 10px; /* Adjust the margin as needed */
+  width: 30px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
